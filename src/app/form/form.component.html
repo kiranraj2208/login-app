@@ -1,0 +1,25 @@
+<div class="container" [class.mat-elevation-z16]>
+ <div class="row">
+    <div class="col-sm-offset-3 col-sm-5">
+      <div class="tile">
+        <div class="login" [ngClass]="{'show': loginClicked}">
+        <h1 style="font-family: 'Rye', cursive;">Login </h1>
+          <form [ngClass]="{'hidden': !loginClicked}">
+            <app-login></app-login>
+          </form>
+        </div><!-- login -->
+        <div [ngClass] = "{show: signupClicked}" class="signup">
+        <!-- <img src="http://gdurl.com/vAuS" class="logo"> -->
+        <h1 style="font-family: 'Rye', cursive;">Signup </h1>
+          <form [ngClass]="{'hidden': !signupClicked}">
+            <app-signup></app-signup>
+          </form>
+        </div><!-- signup -->
+        <span class="btn btn-warning btn-signup" [ngClass] = "{'hidden': signupClicked}"
+         (click) ="signupClicked=true; loginClicked=false">Click here to <strong> sign up</strong></span>
+        <span class="btn btn-info btn-login" [ngClass] = "{'hidden': loginClicked}"
+         (click) ="signupClicked=false; loginClicked=true">Click here to <strong>login</strong></span>
+      </div><!-- tile -->
+    </div><!-- col-6 -->
+  </div><!-- row -->
+</div><!-- container -->

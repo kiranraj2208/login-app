@@ -1,0 +1,70 @@
+<form #usersignup="ngForm"  class="example-form">
+        <div>
+                <label>Username <br>
+        <mat-form-field class="Input" floatLabel="never" appearance="none">
+            <div class="outerDiv effect-11">
+                <input matInput placeholder="Username" [formControl]="usernameFormControl" class="formInput"
+                        [errorStateMatcher]="matcher">
+            </div>
+          <!-- <mat-hint>Enter email or username</mat-hint> -->
+          <mat-error *ngIf="usernameFormControl.hasError('usernameExists')">
+            username already exists
+          </mat-error>
+          <mat-error *ngIf="usernameFormControl.hasError('forbiddenName') && !usernameFormControl.hasError('usernameExists')">
+              username should not contain special characters and should be in lowercase
+          </mat-error>
+          <mat-error *ngIf="usernameFormControl.hasError('minlength') && !usernameFormControl.hasError('forbiddenName')
+           && !usernameFormControl.hasError('usernameExists')">
+                username is too short
+            </mat-error>
+          <mat-error *ngIf="usernameFormControl.hasError('required') && !usernameFormControl.hasError('minlength')
+          && !usernameFormControl.hasError('forbiddenName') && !usernameFormControl.hasError('usernameExists')">
+            Username is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </label>
+    </div>
+    <br>
+    <div>
+            <label>Email<br>
+    <mat-form-field class="Input" floatLabel="never" appearance="none">
+        <div class="outerDiv effect-11">
+            <input matInput placeholder="Email" [formControl]="emailFormControl" class="formInput"
+                    [errorStateMatcher]="matcher">
+        </div>
+      <!-- <mat-hint>Enter email or username</mat-hint> -->
+      <mat-error *ngIf="emailFormControl.hasError('emailExists')">
+          email already exists
+        </mat-error>
+      <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')
+      && !emailFormControl.hasError('emailExists')">
+        Please enter a valid email address
+      </mat-error>
+      <mat-error *ngIf="emailFormControl.hasError('required') && !emailFormControl.hasError('email')
+      && !emailFormControl.hasError('emailExists')">
+        Email is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+  </label>
+</div>
+<div>
+<br>
+    <label>Password <br>
+    <mat-form-field class="Input" floatLabel="never" appearance="none">
+        <div class="outerDiv effect-11">
+        <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'" class="formInput"
+        [formControl]="passwordFormControl" [errorStateMatcher]="matcher">
+    </div>
+        <mat-error *ngIf="passwordFormControl.hasError('minlength')">
+            Password should contain atleast 8 characters
+        </mat-error>
+        <mat-error *ngIf="passwordFormControl.hasError('required')">
+            Password is required
+        </mat-error>
+      </mat-form-field>
+    </label>
+    </div>
+    <button mat-raised-button color="primary" (click)="onsubmit()"
+    [disabled]="!usernameFormControl.valid || !emailFormControl.valid || !passwordFormControl.valid ">sign up</button>
+  </form>
+  
