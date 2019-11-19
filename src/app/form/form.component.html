@@ -3,16 +3,16 @@
     <div class="col-sm-offset-3 col-sm-5">
       <div class="tile">
         <div class="login" [ngClass]="{'show': loginClicked}">
-        <h1 style="font-family: 'Rye', cursive;">Login </h1>
+        <h1 style="font-family: 'Rye', cursive; margin-left: 10px;">Login </h1>
           <form [ngClass]="{'hidden': !loginClicked}">
             <app-login></app-login>
           </form>
         </div><!-- login -->
         <div [ngClass] = "{show: signupClicked}" class="signup">
         <!-- <img src="http://gdurl.com/vAuS" class="logo"> -->
-        <h1 style="font-family: 'Rye', cursive;">Signup </h1>
+        <h1 style="font-family: 'Rye', cursive; margin-left: 10px;">Signup </h1>
           <form [ngClass]="{'hidden': !signupClicked}">
-            <app-signup></app-signup>
+            <app-signup [signup]="signupClicked"></app-signup>
           </form>
         </div><!-- signup -->
         <span class="btn btn-warning btn-signup" [ngClass] = "{'hidden': signupClicked}"

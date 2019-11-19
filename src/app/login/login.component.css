@@ -56,7 +56,8 @@
     border: 0;
     border-radius: 10px;
 		outline: 0;
-    padding: 22px 18px;
+    padding: 22px 0px;
+    text-indent: 10px;
     box-sizing: border-box;
     transition: background-color 1s;
 }
