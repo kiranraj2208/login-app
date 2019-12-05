@@ -1,65 +1,84 @@
 .example-form {
-    padding: 10px;
+  padding: 10px;
 }
 
-
-.example-container {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .example-container > * {
-    width: 100%;
-  }
-  
-  .example-right-align {
-    text-align: right;
-  }
-  
-  input.example-right-align::-webkit-outer-spin-button,
-  input.example-right-align::-webkit-inner-spin-button {
-    display: none;
-  }
-  
-  input.example-right-align {
-    -moz-appearance: textfield;
-  }
-
-  .Input {
-      /* border: 2px solid black; */
-      width: 300px;
-  }
-
+.Input {
+  /* border: 2px solid black; */
+  width: 300px;
+}
 
 .outerDiv {
-    height: 20px;
-    padding: 1px;
-    display: flex;
-    /* border: 1px solid gray; */
-    border-radius: 10px;
-    font: 15px/24px 'Muli', sans-serif; 
-    color: #333; 
-    width: 100%; 
-    box-sizing: border-box; 
-    letter-spacing: 1px;
+  height: 20px;
+  padding: 1px;
+  display: flex;
+  /* border: 1px solid gray; */
+  border-radius: 10px;
+  font: 15px/24px "Muli", sans-serif;
+  color: #333;
+  width: 100%;
+  box-sizing: border-box;
+  letter-spacing: 1px;
 }
 
 .formInput {
   position: relative;
-  bottom: 20px;
+  bottom: 15px;
   width: 38 0px;
   display: flex;
-		background-color: #fff;
-		color: #a3a3a3;
-		font: inherit;
-		box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.1);
-    border: 0;
-    border-radius: 10px;
-		outline: 0;
-    padding: 22px 18px;
-    box-sizing: border-box;
-    transition: background-color 1s;
+  background-color: #fff;
+  color: #000000;
+  font: inherit;
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.3);
+  border: 1px solid black;
+  border-radius: 30px;
+  outline: 0;
+  padding: 22px 18px;
+  text-indent: 30px;
+  box-sizing: border-box;
+  transition: background-color 1s;
 }
 .formInput:hover {
   background-color: #f8d4d4;
+}
+
+.text {
+  width: 350px;
+  height: 50px;
+  font: 15px/24px "Muli", sans-serif;
+  transition: display 0.5 ease;
+  transition-delay: 0.5s;
+}
+
+.submitButton {
+  cursor: pointer;
+  background-color: black;
+  color: white;
+  height: 40px;
+  width: 200px;
+  border-radius: 30px;
+  font: 15px/24px "Muli", sans-serif;
+  font-size: large;
+  margin-top: 10px;
+  margin-left: 15%;
+  outline: none;
+}
+.disable {
+  cursor: not-allowed;
+}
+
+
+.bounce {
+  animation: bounce 500ms;
+}
+
+@keyframes bounce {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
 }

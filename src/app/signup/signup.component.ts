@@ -47,21 +47,39 @@ export class SignupComponent implements OnInit {
     Validators.required,
     Validators.minLength(8)
   ]);
-  constructor(private userLoginService: UserLoginServiceService) {}
+  repasswordFormControl = new FormControl("", [
+    Validators.required,
+    checkSameValidator(this.passwordFormControl)
+  ]);
+  mobileFormControl = new FormControl("", [
+    Validators.required,
+    checkMobileValidator()
+  ]);
+  constructor(private userLoginService: UserLoginServiceService) { }
 
   matcher = new MyErrorStateMatcher();
 
+  allValid() {
+    return (this.emailFormControl.valid && this.usernameFormControl.valid
+    && this.passwordFormControl.valid && this.repasswordFormControl.valid &&
+    this.mobileFormControl.valid);
+  }
+
   onsubmit() {
-    this.emailFormControl.setErrors({
-      emailExists: this.userLoginService.checkEmailAlreadyExists(
-        this.emailFormControl.value
-      )
-    });
-    this.usernameFormControl.setErrors({
-      usernameExists: this.userLoginService.checkUsernameAlreadyExists(
-        this.usernameFormControl.value
-      )
-    });
+    if (this.emailFormControl.valid && this.usernameFormControl.valid) {
+      this.emailFormControl.setErrors({
+        emailExists: this.userLoginService.checkEmailAlreadyExists(
+          this.emailFormControl.value
+        )
+      });
+      this.usernameFormControl.setErrors({
+        usernameExists: this.userLoginService.checkUsernameAlreadyExists(
+          this.usernameFormControl.value
+        )
+      });
+    }
+    console.log(this.emailFormControl);
+    console.log(this.emailFormControl.valid);
     if (
       !this.emailFormControl.hasError("emailExists") &&
       !this.usernameFormControl.hasError("usernameExists")
@@ -69,20 +87,26 @@ export class SignupComponent implements OnInit {
       this.userLoginService.registerUser(
         this.usernameFormControl.value,
         this.emailFormControl.value,
-        this.passwordFormControl.value
+        this.passwordFormControl.value,
+        this.repasswordFormControl.value,
+        this.mobileFormControl.value
       );
       this.emailFormControl.reset();
       this.usernameFormControl.reset();
       this.passwordFormControl.reset();
+      this.repasswordFormControl.reset();
+      this.mobileFormControl.reset();
     }
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
   ngOnChanges(changes: any) {
     if (!this.signup) {
       this.emailFormControl.reset();
       this.usernameFormControl.reset();
       this.passwordFormControl.reset();
+      this.repasswordFormControl.reset();
+      this.mobileFormControl.reset();
       this.signup = true;
     }
   }
@@ -90,14 +114,35 @@ export class SignupComponent implements OnInit {
 
 export function forbiddenNameValidator(): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } | null => {
-    const username = /^[ \w\d]+$/;
+    const username = /^[\w\d]+$/;
     // const email = /^[\w\d\._%+-]+@[\w\d\.-]+\.\w{2,}/;
     let lower = true;
     const validUsername = username.test(control.value);
     if (control.value && control.value !== control.value.toLowerCase())
       lower = false;
-    if ((!validUsername || !lower) && control.value != "")
+    if (!lower && control.value != "") return { notLower: { value: control.value } };
+    if ((!validUsername) && control.value != "")
       return { forbiddenName: { value: control.value } };
     else return null;
   };
 }
+
+export function checkSameValidator(passwordFormControl: any): ValidatorFn {
+  return (control: AbstractControl): { [key: string]: any } | null => {
+    const same = control.value === passwordFormControl.value;
+    if ((!same) && control.value != "")
+      return { different: { value: control.value } };
+    else return null;
+  };
+}
+
+export function checkMobileValidator(): ValidatorFn {
+  return (control: AbstractControl): { [key: string]: any } | null => {
+    const mobile = /^[+\d]?\d{8,}$/;
+    const valid = mobile.test(control.value);
+    if ((!valid) && control.value != "")
+      return { notValid: { value: control.value } };
+    else return null;
+  };
+}
+

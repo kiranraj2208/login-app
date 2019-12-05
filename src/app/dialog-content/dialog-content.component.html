@@ -1,13 +1,28 @@
 <div class="container" [class.mat-elevation-z16]>
-	<div class="container__item">
-			<h4 style="font-family: 'Rye', cursive;position:relative; top: 10px;">Forgot Password? </h4>
-		<form class="form">
-			<input type="email" class="form__field" placeholder="Your E-Mail Address" 
-			[(ngModel)]="forgotEmail" ngModel name="forgotEmail"/>
-			<button type="button" class="btn btn-primary btn-inside uppercase"
-			(click)="sendForgotPassword()">Send</button>
-		</form>
-		<br>
-			<p>{{status}}</p>
-	</div>
+  <div class="container__item">
+    <h4
+      style="font: 15px/24px 'Muli', sans-serif;position:relative; top: 10px;"
+    >
+      <strong>Forgot Password?</strong>
+    </h4>
+    <form class="form">
+      <input
+        type="email"
+        class="form__field"
+        placeholder="Your E-Mail Address"
+        [(ngModel)]="forgotEmail"
+        ngModel
+        name="forgotEmail"
+      />
+      <button
+        type="button"
+        class="btn btn-primary btn-inside uppercase"
+        (click)="sendForgotPassword()"
+      >
+        Send
+      </button>
+    </form>
+    <br />
+    <p>{{ status }}</p>
+  </div>
 </div>

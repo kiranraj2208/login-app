@@ -1,25 +1,56 @@
 <div class="container" [class.mat-elevation-z16]>
- <div class="row">
-    <div class="col-sm-offset-3 col-sm-5">
+  <div class="row">
+    <div class="col-sm-offset-1 col-sm-10">
       <div class="tile">
-        <div class="login" [ngClass]="{'show': loginClicked}">
-        <h1 style="font-family: 'Rye', cursive; margin-left: 10px;">Login </h1>
-          <form [ngClass]="{'hidden': !loginClicked}">
-            <app-login></app-login>
-          </form>
-        </div><!-- login -->
-        <div [ngClass] = "{show: signupClicked}" class="signup">
-        <!-- <img src="http://gdurl.com/vAuS" class="logo"> -->
-        <h1 style="font-family: 'Rye', cursive; margin-left: 10px;">Signup </h1>
-          <form [ngClass]="{'hidden': !signupClicked}">
-            <app-signup [signup]="signupClicked"></app-signup>
-          </form>
-        </div><!-- signup -->
-        <span class="btn btn-warning btn-signup" [ngClass] = "{'hidden': signupClicked}"
-         (click) ="signupClicked=true; loginClicked=false">Click here to <strong> sign up</strong></span>
-        <span class="btn btn-info btn-login" [ngClass] = "{'hidden': loginClicked}"
-         (click) ="signupClicked=false; loginClicked=true">Click here to <strong>login</strong></span>
-      </div><!-- tile -->
-    </div><!-- col-6 -->
-  </div><!-- row -->
-</div><!-- container -->
+        <img src="../../assets/img/onground.png" width="50%" class="image" />
+        <div style="width: 50%; padding-left: 30px;">
+          <h1
+            style="font-family: 'Crimson Pro', serif; margin-left: 0px;"
+            class="header"
+          >
+            <span
+              (click)="signupClicked = false; loginClicked = true"
+              style="cursor: pointer;"
+              [ngClass]="{ headerBorder: loginClicked }"
+              >Login</span
+            >
+            <span
+              (click)="signupClicked = true; loginClicked = false"
+              style="margin-left: 20%;cursor: pointer;"
+              [ngClass]="{ headerBorder: signupClicked }"
+              >SignUp</span
+            >
+          </h1>
+          <div class="login" [ngClass]="{ show: loginClicked }">
+            <form [ngClass]="{ hidden: !loginClicked }">
+              <p class="text">
+                Don't have an account ?
+                <span
+                  class="createAccount"
+                  (click)="signupClicked = true; loginClicked = false"
+                  >Create Account</span
+                >
+                it takes less than a minute
+              </p>
+              <app-login></app-login>
+            </form>
+          </div>
+          <!-- login -->
+          <div [ngClass]="{ show: signupClicked }" class="signup">
+            <!-- <img src="http://gdurl.com/vAuS" class="logo"> -->
+            <!-- <h1 style="font-family: 'Rye', cursive; margin-left: 10px;">
+            Signup
+          </h1> -->
+            <form [ngClass]="{ hidden: !signupClicked }">
+              <app-signup [signup]="signupClicked"></app-signup>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- tile -->
+    </div>
+    <!-- col-6 -->
+  </div>
+  <!-- row -->
+</div>
+<!-- container -->

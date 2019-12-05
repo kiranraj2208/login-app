@@ -7,11 +7,13 @@ export class UserLoginServiceService {
   userDetails = [];
   constructor() { }
 
-  registerUser(username:string, email:string, password:string) {
+  registerUser(username:string, email:string, password:string, repassword:string, mobile: string) {
     this.userDetails.push({
       username,
       email,
-      password
+      password,
+      repassword,
+      mobile
     });
     alert("registered successfully");
   }

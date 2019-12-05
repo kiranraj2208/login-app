@@ -1,8 +1,8 @@
-import {Component, Inject } from '@angular/core';
-import {FormControl, FormGroupDirective, NgForm, Validators, AbstractControl, ValidatorFn, FormGroup} from '@angular/forms';
-import {ErrorStateMatcher} from '@angular/material/core';
-import {UserLoginServiceService} from '../user-login-service.service';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
+import { FormControl, FormGroupDirective, NgForm, Validators, AbstractControl, ValidatorFn, FormGroup } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { UserLoginServiceService } from '../user-login-service.service';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -33,7 +33,7 @@ export class LoginComponent {
     Validators.required,
     Validators.minLength(8),
   ]);
-  constructor(private userLoginService: UserLoginServiceService, public dialog:MatDialog) {}
+  constructor(private userLoginService: UserLoginServiceService, public dialog: MatDialog) { }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(ForgotPasswordDialog, {
@@ -55,28 +55,30 @@ export class LoginComponent {
     // console.log(this.password);
     // console.log(this.emailFormControl.valid);
     console.log(this.emailFormControl.value);
-    this.userLoginService.loginUser(this.emailFormControl.value, this.passwordFormControl.value);
+    if (this.emailFormControl.valid && this.passwordFormControl.valid)
+      this.userLoginService.loginUser(this.emailFormControl.value, this.passwordFormControl.value);
   }
 
 }
 
 export function forbiddenNameValidator(nameRe: RegExp): ValidatorFn {
-    return (control: AbstractControl): {[key: string]: any} | null => {
-      const username = /[!#$%^&*()\s]+/;
-      const email = /^[\w\d\._%+-]+@[\w\d\.-]+\.\w{2,}/;
-      let lower = false;
-      const forbidden  = username.test(control.value);
-      if(control.value === control.value.toLowerCase())
-        lower = true;
-       if(forbidden || !lower ) return {'forbiddenName': {value: control.value}} 
-       else if(control.value.indexOf('@') !== -1){
-          if( !email.test(control.value))
-          return {'email': {value: control.value}}
-       }
-       else
-       return null;
-
+  return (control: AbstractControl): { [key: string]: any } | null => {
+    const username = /[!#$%^&*()\s]+/;
+    const email = /^[\w\d\._%+-]+@[\w\d\.-]+\.\w{2,}/;
+    let lower = false;
+    const forbidden = username.test(control.value);
+    if (control.value === control.value.toLowerCase())
+      lower = true;
+    if (!lower) return { notLower: { value: control.value } };
+    if (forbidden) return { 'forbiddenName': { value: control.value } }
+    else if (control.value.indexOf('@') !== -1) {
+      if (!email.test(control.value))
+        return { 'email': { value: control.value } }
     }
+    else
+      return null;
+
+  }
 }
 
 @Component({
@@ -88,10 +90,10 @@ export class ForgotPasswordDialog {
 
   constructor(
     public dialogRef: MatDialogRef<ForgotPasswordDialog>,
-    @Inject(MAT_DIALOG_DATA) public userLoginService: UserLoginServiceService) {}
+    @Inject(MAT_DIALOG_DATA) public userLoginService: UserLoginServiceService) { }
 
-    forgotEmail = '';
-    status = '';   
+  forgotEmail = '';
+  status = '';
   onNoClick(): void {
     this.dialogRef.close();
   }

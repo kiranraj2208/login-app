@@ -1,94 +1,101 @@
 <form #userlogin="ngForm" class="example-form" (ngSubmit)="onsubmit()">
   <div>
-    <label
-      >Email/Username <br />
-      <mat-form-field class="Input" floatLabel="never" appearance="none">
-        <div class="outerDiv">
-          <input
-            matInput
-            placeholder="Email/Username"
-            [formControl]="emailFormControl"
-            class="formInput"
-            [errorStateMatcher]="matcher"
-          />
-        </div>
-        <!-- <mat-hint>Enter email or username</mat-hint> -->
-        <mat-error *ngIf="emailFormControl.hasError('forbiddenName')">
-          email/username should not contain special characters except '@.' and
-          should be in lowercase
-        </mat-error>
-        <mat-error
-          *ngIf="
-            emailFormControl.hasError('minlength') &&
-            !emailFormControl.hasError('forbiddenName')
-          "
-        >
-          email/username is too short
-        </mat-error>
-        <mat-error
-          *ngIf="
-            emailFormControl.hasError('email') &&
-            !emailFormControl.hasError('required') &&
-            !emailFormControl.hasError('minlength')
-          "
-        >
-          Please enter a valid email address
-        </mat-error>
-        <mat-error
-          *ngIf="
-            emailFormControl.hasError('required') &&
-            !emailFormControl.hasError('minlength')
-          "
-        >
-          email/username is <strong>required</strong>
-        </mat-error>
-      </mat-form-field>
-    </label>
+    <!-- <p class="text">
+      Don't have an account ?
+      <span class="createAccount">Create Account</span> it takes less than a
+      minute
+    </p> -->
+    <mat-form-field class="Input" floatLabel="never" appearance="none">
+      <div class="outerDiv">
+        <input
+          matInput
+          placeholder="Email/Username"
+          [formControl]="emailFormControl"
+          class="formInput"
+          [errorStateMatcher]="matcher"
+        />
+      </div>
+      <!-- <mat-hint>Enter email or username</mat-hint> -->
+      <mat-error *ngIf="emailFormControl.hasError('forbiddenName')">
+        email/username should not contain special characters except '@.'
+      </mat-error>
+      <mat-error
+        *ngIf="
+          emailFormControl.hasError('notLower') &&
+          !emailFormControl.hasError('forbiddenName')
+        "
+      >
+        email/username should be in Lower case
+      </mat-error>
+      <mat-error
+        *ngIf="
+          emailFormControl.hasError('minlength') &&
+          !emailFormControl.hasError('forbiddenName') &&
+          !emailFormControl.hasError('notLower')
+        "
+      >
+        email/username is too short
+      </mat-error>
+      <mat-error
+        *ngIf="
+          emailFormControl.hasError('email') &&
+          !emailFormControl.hasError('required') &&
+          !emailFormControl.hasError('minlength') &&
+          !emailFormControl.hasError('notLower')
+        "
+      >
+        Please enter a valid email address
+      </mat-error>
+      <mat-error
+        *ngIf="
+          emailFormControl.hasError('required') &&
+          !emailFormControl.hasError('minlength') &&
+          !emailFormControl.hasError('notLower') &&
+          !emailFormControl.hasError('forbiddenName')
+        "
+      >
+        email/username is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
   </div>
   <div>
-    <br />
-
-    <label
-      >Password <br />
-      <mat-form-field class="Input" floatLabel="never" appearance="none">
-        <div class="outerDiv effect-11">
-          <input
-            matInput
-            placeholder="Enter your password"
-            [type]="hide ? 'password' : 'text'"
-            class="formInput"
-            [formControl]="passwordFormControl"
-            [errorStateMatcher]="matcher"
-          />
-        </div>
-        <mat-error *ngIf="passwordFormControl.hasError('minlength')">
-          Password should contain atleast 8 characters
-        </mat-error>
-        <mat-error *ngIf="passwordFormControl.hasError('required')">
-          Password is required
-        </mat-error>
-      </mat-form-field>
-    </label>
+    <mat-form-field class="Input" floatLabel="never" appearance="none">
+      <div class="outerDiv effect-11">
+        <input
+          matInput
+          placeholder="Enter your password"
+          [type]="hide ? 'password' : 'text'"
+          class="formInput"
+          [formControl]="passwordFormControl"
+          [errorStateMatcher]="matcher"
+        />
+      </div>
+      <mat-error *ngIf="passwordFormControl.hasError('minlength')">
+        Password should contain atleast 8 characters
+      </mat-error>
+      <mat-error *ngIf="passwordFormControl.hasError('required')">
+        Password is required
+      </mat-error>
+    </mat-form-field>
   </div>
   <br />
   <div style="margin-left: 5px;">
     <mat-checkbox color="primary" [(ngModel)]="checked" name="checked"
       >Remember me</mat-checkbox
     >
-    <br />
-    <button
-      mat-raised-button
-      color="primary"
-      [disabled]="!emailFormControl.valid || !passwordFormControl.valid"
-    >
-      Login
-    </button>
     <span
       (click)="openDialog()"
       style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    margin-left: 5px; cursor: pointer;"
+    margin-left: 5%; cursor: pointer; width: 20%;"
     >
       <em> <strong> Lost your password ?</strong></em></span
     >
+    <br />
+    <button
+    class="submitButton"
+    [ngClass]="{'bounce': emailFormControl.valid && passwordFormControl.valid}"
+    >
+      login
+    </button>
   </div>
 </form>
